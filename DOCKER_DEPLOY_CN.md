@@ -1,96 +1,26 @@
 # 115ED Docker / Docker Compose 部署教程
 
-使用 Docker 或 Docker Compose 部署 115ED，并完成 Emby、115 Cookie、STRM 路径映射、播放基地址、反向代理和常用维护操作。
+使用 Docker 或 Docker Compose 部署 115ED,和Emby 优雅配合，媒体资源丝滑入库，支持 302 直链播放
 
 115ED 主要用途：
 
 ```text
-1. 连接 Emby
-2. 使用 115 Cookie 读取网盘目录
-3. 按路径映射生成 STRM 文件
-4. 提供 /api/strm/play?pickcode=xxx 播放入口
-5. 可选接收 Emby Webhook 和发送 Telegram 通知
+1. 按路径映射生成 STRM 文件
+2. 打造115云端存储通往私有媒体库的“最后一公里”，实现云端资源无感入库、丝滑秒开
+3. 支持定时 全量同步、增量同步。让你的媒体库永远保持最新状态
+4.一站式Emby 302 重定向技术。视频流直连请求网盘，不占用 NAS 带宽，拒绝播放转圈。
+4. Emby Webhook 和发送 Telegram 通知
+5.超级轻量化高性能，专注302直链等核心需求，不占用太多资源
 ```
-
-## 一、部署前准备
-
-### 1. 推荐系统
-
-推荐使用：
-
 ```text
-Debian 11 / Debian 12
-Ubuntu 20.04 / 22.04 / 24.04
+什么是 STRM？
+STRM 文件 本质上是一个网络资源的快捷方式，它使得无须在本地存储媒体文件，让媒体服务器播放时再直接从网络上请求媒体资源。
+
+入库极快：扫描媒体库时仅需识别 KB 级别的文本文件，无需读取海量媒体数据。
+兼容性强：支持 Emby, Jellyfin, Plex, Kodi, 飞牛影视等主流媒体服务器。
 ```
 
-建议配置：
-
-```text
-CPU：1 核或以上
-内存：512 MB 或以上
-磁盘：预留足够空间保存 STRM、日志和配置
-网络：能正常访问 115 网盘和 Emby
-```
-
-### 2. 安装基础工具
-
-```bash
-apt update
-apt install -y curl wget vim nano ca-certificates gnupg lsb-release
-```
-
-### 3. 安装 Docker
-
-```bash
-curl -fsSL https://get.docker.com | bash
-```
-
-启动 Docker：
-
-```bash
-systemctl enable docker
-systemctl start docker
-```
-
-检查 Docker：
-
-```bash
-docker version
-docker compose version
-```
-
-如果 `docker compose version` 不存在，旧环境可能使用：
-
-```bash
-docker-compose version
-```
-
-## 二、创建部署目录
-
-建议放在 `/opt/115ed`：
-
-```bash
-mkdir -p /opt/115ed
-cd /opt/115ed
-```
-
-创建配置、日志、STRM 目录：
-
-```bash
-mkdir -p logs
-mkdir -p media/strm
-```
-
-目录说明：
-
-```text
-/opt/115ed/config.json       115ED 主配置
-/opt/115ed/115ed.env         容器环境变量
-/opt/115ed/logs              日志目录
-/opt/115ed/media/strm        STRM 文件目录
-```
-
-## 三、创建配置文件
+##创建配置文件
 
 ### 1. 创建 115ed.env
 
