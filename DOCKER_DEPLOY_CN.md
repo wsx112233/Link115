@@ -142,7 +142,7 @@ admin_user
 admin_pass
 ```
 
-## 4、docker run 部署
+## 3、docker run 部署
 
 如果不用 Docker Compose，也可以使用 `docker run`：
 
@@ -177,7 +177,7 @@ docker stop 115ed
 docker rm 115ed
 ```
 
-## 5、后台基础配置说明
+## 4、后台基础配置说明
 
 进入后台后，建议按顺序填写：
 
@@ -312,7 +312,7 @@ CID：2564183201492762537
 
 Emby 媒体库也需要能访问同一批 STRM 文件。
 
-## 6、和 Emby 配合
+## 5、和 Emby 配合
 
 ### 1. Emby 媒体库路径
 
@@ -353,7 +353,7 @@ Emby 媒体库添加：
 
 可以在 Emby 后台手动扫描，也可以配置 Webhook 或定时任务。
 
-## 7、Emby Webhook，可选
+## 6、Emby Webhook，可选
 
 Webhook 地址：
 
@@ -388,7 +388,7 @@ Webhook
 播放停止
 ```
 
-## 8、反向代理和 HTTPS
+## 7、反向代理和 HTTPS
 
 生产环境建议使用域名和 HTTPS，例如：
 
@@ -427,7 +427,7 @@ location / {
 4. 目标 URL 填 http://127.0.0.1:6090
 ```
 
-## 9、常用命令
+## 8、常用命令
 
 ### 1. 进入目录
 
@@ -569,7 +569,7 @@ find /opt/115ed/media/strm -type f -name "*.strm" -size 0 -print
 cat "/opt/115ed/media/strm/影片名/影片名.strm"
 ```
 
-## 10、常见问题
+## 9、常见问题
 
 ### 1. 后台打不开
 
@@ -718,7 +718,7 @@ find /opt/115ed/media/strm -type f -name "*.strm" -size 0 -print
 
 如果确认不要这些草稿，手动改回原值或重新登录后按实际页面状态处理。
 
-## 11、安全注意事项
+## 10、安全注意事项
 
 1. `config.json` 包含 Emby ApiKey、115 Cookie、Telegram Token、授权码，不要公开。
 
@@ -741,7 +741,7 @@ ports:
 
 8. 不要随便执行 `docker system prune -a`，它可能删除你后续还要用的镜像。
 
-## 12、推荐最小部署流程
+## 11、推荐最小部署流程
 
 ```bash
 apt update
