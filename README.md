@@ -3,4 +3,4 @@
 
 ## 文档
 
-- [115ED Docker / Docker Compose 部署教程](115ED_DOCKER_DEPLOY_CN.md)
+- [115ED Docker / Docker Compose 部署教程](DOCKER_DEPLOY_CN.md)
