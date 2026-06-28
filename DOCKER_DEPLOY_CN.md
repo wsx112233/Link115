@@ -1,6 +1,6 @@
 # 115ED Docker / Docker Compose 部署教程
 
-本文面向普通用户，说明如何使用 Docker 或 Docker Compose 部署 115ED，并完成 Emby、115 Cookie、STRM 路径映射、播放基地址、反向代理和常用维护操作。
+使用 Docker 或 Docker Compose 部署 115ED，并完成 Emby、115 Cookie、STRM 路径映射、播放基地址、反向代理和常用维护操作。
 
 115ED 主要用途：
 
